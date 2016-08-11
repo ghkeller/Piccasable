@@ -1,6 +1,6 @@
 #include <Wt/WApplication>
 
-#include "upload.h"
+#include "UploadForm.h"
 
 Wt::WApplication *createApplication(const Wt::WEnvironment& env)
 {
@@ -10,7 +10,7 @@ Wt::WApplication *createApplication(const Wt::WEnvironment& env)
 
   app->useStyleSheet("css/hangman.css");
 
-  new HangmanGame(app->root());
+  new UploadForm(app->root());
 
   return app;
 }

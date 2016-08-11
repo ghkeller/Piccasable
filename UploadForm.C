@@ -1,27 +1,9 @@
-#include <functional>
-#include <Wt/WApplication>
-#include <Wt/WBreak>
 #include <Wt/WContainerWidget>
-#include <Wt/WFileUpload>
-#include <Wt/WProgressBar>
-#include <Wt/WPushButton>
-#include <Wt/WText>
-#include <Wt/WMessageBox>
 
-class UploadApplication : public Wt::WApplication
-{
-public:
-    UploadApplication(const Wt::WEnvironment& env);
+#include "UploadForm.h"
 
-private:
-	Wt::WContainerWidget *container;
-	Wt::WFileUpload *fu;
-	Wt::WPushButton *uploadButton;
-	Wt::WText *out;
-};
-
-UploadApplication::UploadApplication(const Wt::WEnvironment& env)
-    : Wt::WApplication(env)
+UploadForm::UploadForm(WContainerWidget )
+    : WContainerWidget(parent)
 {
     container = new Wt::WContainerWidget();
     root()->addWidget(container);
@@ -54,7 +36,7 @@ UploadApplication::UploadApplication(const Wt::WEnvironment& env)
 	    out->setText("File upload is finished.");
 	}));
 
-	fu->uploaded().connect(UploadApplication::showDone());
+	fu->uploaded().connect(UploadForm::showDone());
 
 	// React to a file upload problem.
 	fu->fileTooLarge().connect(std::bind([=] () {
@@ -62,18 +44,8 @@ UploadApplication::UploadApplication(const Wt::WEnvironment& env)
 	}));
 }
 
-void UploadApplication::showDone() {
+void UploadForm::showDone() {
 	Wt::WMessageBox *done_uploading_alt = new Wt::WMessageBox();
    	done_uploading_alt->setText("File done uploading");
     done_uploading_alt->show();
-}
-
-Wt::WApplication *createApplication(const Wt::WEnvironment& env)
-{
-    return new UploadApplication(env);
-}
-
-int main(int argc, char **argv)
-{
-    return Wt::WRun(argc, argv, &createApplication);
 }

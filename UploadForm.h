@@ -14,6 +14,7 @@
 class UploadForm : public Wt::WContainerWidget
 {
 public:
+  UploadForm(Wt::WContainerWidget *parent = 0);
 
 private:
   Wt::WContainerWidget *container;
