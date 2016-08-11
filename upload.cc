@@ -6,6 +6,7 @@
 #include <Wt/WProgressBar>
 #include <Wt/WPushButton>
 #include <Wt/WText>
+#include <Wt/WMessageBox>
 
 class UploadApplication : public Wt::WApplication
 {
@@ -51,12 +52,19 @@ UploadApplication::UploadApplication(const Wt::WEnvironment& env)
 	// React to a succesfull upload.
 	fu->uploaded().connect(std::bind([=] () {
 	    out->setText("File upload is finished.");
+	    self->showDone();
 	}));
 
 	// React to a file upload problem.
 	fu->fileTooLarge().connect(std::bind([=] () {
 	    out->setText("File is too large.");
 	}));
+}
+
+void UploadApplication::showDone() {
+	Wt::WMessageBox *done_uploading_alt = new Wt::WMessageBox();
+   	done_uploading_alt->setText("File done uploading");
+    done_uploading_alt->show();
 }
 
 Wt::WApplication *createApplication(const Wt::WEnvironment& env)
